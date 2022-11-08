@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      var vix;
+      var viy;
+      var tt;
+      var x;
+      var y;
+      var t = 0;
+      var beginmove;
+      var g = 9.8;
+      var xmax;
+      function resolve() {
+        var vi = document.getElementById("vi").value;
+        var theta = document.getElementById("theta").value;
+        g = document.getElementById("planets").value;
+        var area = document.getElementById("area");
+        theta = theta * (Math.PI / 180);
+
+        //vix,viy
+        var vix = vi * Math.cos(theta).toFixed(3);
+        var viy = vi * Math.sin(theta).toFixed(3);
+
+        //ts,tt
+        var ts = (viy / g).toFixed(3);
+        var tt = (ts * 2).toFixed(3);
+
+        //ymax,xmax
+        xmax = (vix * tt).toFixed(3);
+        var ymax = ((Math.pow(viy, 2) / 2) * g).toFixed(3);
+
+        console.log(vix);
+        console.log(viy);
+        console.log(ts);
+        console.log(tt);
+        console.log(xmax);
+        console.log(ymax);
+        var birdsred=document.getElementById('birdsred')
+        for (t = 0; t <= tt; t += 0.5) {
+          var x = vix * t;
+          var y = 400 - (viy * t - (g * Math.pow(t, 2)) / 2);
+          var birds = document.createElement("img");
+          console.log(vy);
+          console.log(v);
+          var vy = Math.abs(viy - g * t);
+          var v = Math.sqrt(Math.pow(vix, 2) + Math.pow(vy, 2));
+          birds.src =birdsred.src;
+          birds.style.width = 50 + "px";
+          birds.style.position = "absolute";
+          birds.style.top = y + "px";
+          birds.style.left = x + "px";
+          birds.title = `velx:${vix},vely:${vy},vel:${v}`;
+          area.appendChild(birds);
+        }
+        
+        var birds=document.createElement('img')   
+        birds.src=birdsred.src;
+          var vy = Math.abs(viy - g * t);
+          var v = Math.sqrt(Math.pow(vix, 2) + Math.pow(vy, 2));
+          birds.src =birdsred.src;
+          birds.style.width = 50 + "px";
+          birds.style.position = "absolute";
+          birds.style.top = 400 + "px";
+          birds.style.left = xmax + "px";
+          birds.title = `velx:${vix},vely:${vy},vel:${v}`;
+          area.appendChild(birds);
+    
+      }
+      function startmove() {
+        var vi = document.getElementById("vi").value;
+        var theta = document.getElementById("theta").value;
+        g = document.getElementById("planets").value;
+        var area = document.getElementById("area");
+        theta = theta * (Math.PI / 180);
+
+        //vix,viy
+        vix = vi * Math.cos(theta).toFixed(3);
+        viy = vi * Math.sin(theta).toFixed(3);
+
+        //ts,tt
+        var ts = (viy / g).toFixed(3);
+        tt = (ts * 2).toFixed(3);
+
+        //ymax,xmax
+        xmax = (vix * tt).toFixed(3);
+        var ymax = ((Math.pow(viy, 2) / 2) * g).toFixed(3);
+
+        beginmove = setInterval(move, 200);
+      }
+      function move() {
+        var birdsred = document.getElementById("birdsred");
+        g = document.getElementById("planets").value;
+        x = vix * t;
+        y = 400 - (viy * t - (g * Math.pow(t, 2)) / 2);
+        if (t <= tt) {
+          birdsred.style.left = x + "px";
+          birdsred.style.top = y + "px";
+          t+=0.1;
+        } else {
+          clearInterval(beginmove);
+          birdsred.style.left = xmax + "px";
+          birdsred.style.top = "400px";
+        }
+      }
+      function backgroundchange() {
+        var planets = document.getElementById("planets").value;
+        if (planets == "9.807") {
+          document.body.style.background = `url('images/tierra.png')`;
+        }
+        if (planets == "1.62") {
+          document.body.style.background = `url('images/luna.png')`;
+        }
+        if (planets == "274") {
+          document.body.style.background = `url('images/sol.png')`;
+        }
+        if (planets == "3.7") {
+          document.body.style.background = `url('images/mercurio.png')`;
+        }
+        if (planets == "8.87") {
+          document.body.style.background = `url('images/venus.png')`;
+        }
+        if (planets == "3.721") {
+          document.body.style.background = `url('images/marte.png')`;
+        }
+        if (planets == "24.79") {
+          document.body.style.background = `url('images/jupiter.png')`;
+        }
+        if (planets == "10.44") {
+          document.body.style.background = `url('images/saturno.png')`;
+        }
+        if (planets == "8.870") {
+          document.body.style.background = `url('images/urano.png')`;
+        }
+        if (planets == "11.15") {
+          document.body.style.background = `url('images/neptuno.png')`;
+        }
+        if (planets == "0.62") {
+          document.body.style.background = `url('images/pluto.png')`;
+        }
+        document.body.style.backgroundRepeat = "no-repeat";
+        document.body.style.backgroundSize = "cover";
+      }
+      function changeCharacter(){
+        var character=document.getElementById('character').value;
+        var vi=document.getElementById('vi');
+        var birdsred=document.getElementById('birdsred'); 
+
+        if(character=='red'){
+          birdsred.src='https://www.photofunky.net/output/image/a/e/6/c/ae6cb6/photofunky.gif';
+          vi.value=90;
+        }
+        if(character=='bomb'){
+          birdsred.src='https://thumbs.gfycat.com/DelectableKindDodobird-max-1mb.gif';
+          vi.value=70;
+        }
+        if(character=='rocket1'){
+          birdsred.src='https://media.indiedb.com/images/games/1/63/62622/Rocket_Ship_moving_1.gif';
+          vi.value=80;
+        }
+        if(character=='mamongus'){
+          birdsred.src='https://www.gifcen.com/wp-content/uploads/2022/09/among-us-gif-7.gif';
+          vi.value=100;
+        }
+
+        if(character=='pug'){
+          birdsred.src='https://i.gifer.com/origin/52/52e4bb28d095ff93d3a4019d43d628bc.gif';
+          vi.value=99;
+        }
+        if(character=='jet'){
+          birdsred.src='https://i.gifer.com/ZBOF.gif';
+          vi.value=60;
+        }
+
+
+        
+        } 
+      function repeat(){
+        for(i=10;i<=90;i+=5){
+          theta=i
+          var vi = document.getElementById("vi").value;
+        g = document.getElementById("planets").value;
+        var area = document.getElementById("area");
+        theta = theta * (Math.PI / 180);
+
+        //vix,viy
+        var vix = vi * Math.cos(theta).toFixed(3);
+        var viy = vi * Math.sin(theta).toFixed(3);
+
+        //ts,tt
+        var ts = (viy / g).toFixed(3);
+        var tt = (ts * 2).toFixed(3);
+
+        //ymax,xmax
+        xmax = (vix * tt).toFixed(3);
+        var ymax = ((Math.pow(viy, 2) / 2) * g).toFixed(3);
+
+        console.log(vix);
+        console.log(viy);
+        console.log(ts);
+        console.log(tt);
+        console.log(xmax);
+        console.log(ymax);
+        var birdsred=document.getElementById('birdsred')
+        for (t = 0; t <= tt; t += 0.5) {
+          var x = vix * t;
+          var y = 400 - (viy * t - (g * Math.pow(t, 2)) / 2);
+          var birds = document.createElement("img");
+          console.log(vy);
+          console.log(v);
+          var vy = Math.abs(viy - g * t);
+          var v = Math.sqrt(Math.pow(vix, 2) + Math.pow(vy, 2));
+          birds.src =birdsred.src;
+          birds.style.width = 50 + "px";
+          birds.style.position = "absolute";
+          birds.style.top = y + "px";
+          birds.style.left = x + "px";
+          birds.title = `velx:${vix},vely:${vy},vel:${v}`;
+          area.appendChild(birds);
+        }
+        
+        var birds=document.createElement('img')   
+        birds.src=birdsred.src;
+          var vy = Math.abs(viy - g * t);
+          var v = Math.sqrt(Math.pow(vix, 2) + Math.pow(vy, 2));
+          birds.src =birdsred.src;
+          birds.style.width = 50 + "px";
+          birds.style.position = "absolute";
+          birds.style.top = 400 + "px";
+          birds.style.left = xmax + "px";
+          birds.title = `velx:${vix},vely:${vy},vel:${v}`;
+          area.appendChild(birds);
+    
+        }
+      }
+      function changeCharacter2(){
+        var vi = document.getElementById("vi").value;
+        var theta = document.getElementById("theta").value;
+        g = document.getElementById("planets").value;
+        var area = document.getElementById("area");
+        theta = theta * (Math.PI / 180);
+
+        //vix,viy
+        var vix = vi * Math.cos(theta).toFixed(3);
+        var viy = vi * Math.sin(theta).toFixed(3);
+
+        //ts,tt
+        var ts = (viy / g).toFixed(3);
+        var tt = (ts * 2).toFixed(3);
+
+        //ymax,xmax
+        xmax = (vix * tt).toFixed(3);
+        var ymax = ((Math.pow(viy, 2) / 2) * g).toFixed(3);
+
+        console.log(vix);
+        console.log(viy);
+        console.log(ts);
+        console.log(tt);
+        console.log(xmax);
+        console.log(ymax);
+        var birdsred=document.getElementById('birdsred')
+        for (t = 0; t <= tt; t += 0.5) {
+          var x = vix * t;
+          var y = 400 - (viy * t - (g * Math.pow(t, 2)) / 2);
+          var birds = document.createElement("img");
+          console.log(vy);
+          console.log(v);
+          var vy = Math.abs(viy - g * t);
+          var v = Math.sqrt(Math.pow(vix, 2) + Math.pow(vy, 2));
+          var selectnumber=Math.round(Math.random()*6)
+          if(selectnumber<=1){
+            birds.src='https://www.photofunky.net/output/image/a/e/6/c/ae6cb6/photofunky.gif';
+          }
+          if(selectnumber==2){
+            birds.src='https://thumbs.gfycat.com/DelectableKindDodobird-max-1mb.gif';
+          }
+          if(selectnumber==3){
+            birds.src='https://media.indiedb.com/images/games/1/63/62622/Rocket_Ship_moving_1.gif';
+          }
+          if(selectnumber==4){
+            birds.src='https://www.gifcen.com/wp-content/uploads/2022/09/among-us-gif-7.gif';
+          }
+          if(selectnumber==5){
+            birds.src='https://i.gifer.com/origin/52/52e4bb28d095ff93d3a4019d43d628bc.gif';
+          }
+          if(selectnumber==6){
+            birds.src='https://i.gifer.com/ZBOF.gif';
+          }
+          birds.style.width = 50 + "px";
+          birds.style.position = "absolute";
+          birds.style.top = y + "px";
+          birds.style.left = x + "px";
+          birds.title = `velx:${vix},vely:${vy},vel:${v}`;
+          area.appendChild(birds);
+        }
+        
+        var birds=document.createElement('img')   
+        birds.src=birdsred.src;
+          var vy = Math.abs(viy - g * t);
+          var v = Math.sqrt(Math.pow(vix, 2) + Math.pow(vy, 2));
+          birds.src =birdsred.src;
+          birds.style.width = 50 + "px";
+          birds.style.position = "absolute";
+          birds.style.top = 400 + "px";
+          birds.style.left = xmax + "px";
+          birds.title = `velx:${vix},vely:${vy},vel:${v}`;
+          area.appendChild(birds);
+    
+      }
+    </script>
+    <style>
+      body {
+        background-image: url("images/tierra.png");
+        background-size:cover;
+        background-repeat: no-repeat;
+      }
+      hr {
+        position: absolute;
+        background-color: rgb(82, 80, 80);
+        border-color: black;
+        top: 435px;
+        width: 99%;
+        height: 10px;
+      }
+      input {
+        width: 80px;
+        height: 25px;
+      }
+      select{
+        height: 25px;
+        width: 88px;
+      }
+      .btn{
+        border-radius: 5px;
+        width: 80px;
+        height: 30px;
+        background: linear-gradient(90deg, rgba(2,0,36,1) 10%, rgba(9,9,121,1) 60%, rgba(0,212,255,1) 100%);
+        color:white;
+      }
+      .btn:hover{
+        background: linear-gradient(90deg,rgba(0,212,255,1) 10%, rgba(9,9,121,1) 60%,rgba(2,0,36,1) 10%);
+      }
+      .card {
+        width: 300px;
+        box-shadow: 2px 2px 2px 2px rgb(173, 173, 245), 4px 4px 4px 4px rgb(71, 148, 219);
+        border-radius: 10px;
+        padding: 5px;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+      }
+      .space{
+        margin-top: 20px; 
+        text-align: center;    
+      }
+      #birdsred {
+        top: 400px;
+        position: absolute;
+        width: 50px;
+      }
+      .personajes{
+      : 110px;
+        background: linear-gradient(90deg, rgba(2,0,36,1) 10%, rgba(9,9,121,1) 60%, rgba(0,212,255,1) 100%);
+        color: white;
+        width: 80px;
+        height: 30px;
+      }
+      .personajes:hover{
+        background: linear-gradient(90deg,rgba(0,212,255,1) 10%, rgba(9,9,121,1) 60%,rgba(2,0,36,1) 10%);
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="row">
+        <div>Vi</div>
+        <div><input type="range" min="20" max="200" value="100" id="vi" /></div>
+      </div>
+      <div class="row">
+        <div>Theta</div>
+        <div><input type="text" value="45" id="theta" /></div>
+      </div>
+      <div class="row">
+        <div>Gravity</div>
+        <div>
+          <select id="planets" onchange="backgroundchange()">
+            <option value="9.807">Earth</option>
+            <option value="1.62">Moon</option>
+            <option value="274">Sun</option>
+            <option value="3.7">Mercury</option>
+            <option value="8.87">Venus</option>
+            <option value="3.721">Mars</option>
+            <option value="24.79">Jupiter</option>
+            <option value="10.44">Saturn</option>
+            <option value="8.870">Uranus</option>
+            <option value="11.15">Neptune</option>
+            <option value="0.62">Pluto</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>character</div>
+        <div>
+          <div>
+            <select id="character" onchange="changeCharacter()">
+              <option value="red">red</option>
+              <option value="bomb">bomb</option>      
+              <option value="rocket1">rocket1</option>
+              <option value="mamongus">mamongus</option>
+              <option value="pug">pug</option>
+              <option value="jet">jet</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row space">
+        <div><button class="btn" onclick="resolve()">Draw</button></div>
+        <div><button class="btn" onclick="startmove()">Move</button></div>
+        <div><button class="btn" onclick="repeat()">Repeat</button></div>
+      </div>
+      <div class="row space">
+        <button class="btn" onclick="changeCharacter2()">character</button>
+      </div>
+    </div>
+    <div>
+      <div id="area"></div>
+      <div>
+        <img
+          id="birdsred"
+          src="https://www.photofunky.net/output/image/a/e/6/c/ae6cb6/photofunky.gif"
+          alt=""
+        />
+        <hr />
+      </div>
+    </div>
+  </body>
+</html>
